@@ -7,10 +7,17 @@ importers:
       '@learn-ui/components': workspace:^1.0.0
       '@learn-ui/theme-chalk': workspace:^1.0.0
       '@learn-ui/utils': workspace:^1.0.0
+      '@types/node': ^18.13.0
+      typescript: ^4.9.3
+      vue: ^3.2.45
     dependencies:
       '@learn-ui/components': link:packages/components
       '@learn-ui/theme-chalk': link:packages/theme-chalk
       '@learn-ui/utils': link:packages/utils
+    devDependencies:
+      '@types/node': 18.13.0
+      typescript: 4.9.5
+      vue: 3.2.47
 
   packages/components:
     specifiers: {}
@@ -258,6 +265,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@types/node/18.13.0:
+    resolution: {integrity: sha512-gC3TazRzGoOnoKAhUx+Q0t8S9Tzs74z7m0ipwGpSqQrleP14hKxP4/JUeEQcD3W1/aIpnWl8pHowI7WokuZpXg==}
+    dev: true
 
   /@vitejs/plugin-vue/4.0.0_vite@4.1.1+vue@3.2.47:
     resolution: {integrity: sha512-e0X4jErIxAB5oLtDqbHvHpJe/uWNkdpYV83AOG2xo2tEVSzCzewgJMtREZM30wXnM5ls90hxiOtAuVU6H5JgbA==}

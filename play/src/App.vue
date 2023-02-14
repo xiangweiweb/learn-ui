@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+import LuButton from '@learn-ui/components/button';
+
 </script>
 
 <template>
@@ -10,8 +12,13 @@ import HelloWorld from './components/HelloWorld.vue'
     <a href="https://vuejs.org/" target="_blank">
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
+    <lu-button
+        :loading="true"
+        size="large"
+        type="text"
+        :block="true">测试</lu-button>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <hello-world msg="Vite + Vue" />
 </template>
 
 <style scoped>
