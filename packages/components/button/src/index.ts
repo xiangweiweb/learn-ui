@@ -10,10 +10,15 @@ export const buttonEmits = {
 export type ButtonEmits = typeof buttonEmits;
 
 
+
 export const buttonProps = {
-    size: String as PropType<ButtonSize>,
+    size: {
+        type: String as PropType<ButtonSize>,
+        default: 'default'
+    },
     type: {
-        type: String as PropType<ButtonType>
+        type: String as PropType<ButtonType>,
+        default: 'default'
     },
     disabled: Boolean,
     block: Boolean,
