@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+
 import LuButton from '@learn-ui/components/button';
 
 </script>
@@ -15,10 +15,24 @@ import LuButton from '@learn-ui/components/button';
     <lu-button
         :loading="true"
         size="large"
-        type="text"
-        :block="true">测试</lu-button>
+        type="link"
+        :block="true">
+        link, large
+    </lu-button>
+    <lu-button
+        type="ghost"
+        size="small"
+        color-type="info">
+        ghost, small
+    </lu-button>
+    <lu-button
+        type="ghost"
+        size="small"
+        color-type="danger">
+        警示按钮
+    </lu-button>
   </div>
-  <hello-world msg="Vite + Vue" />
+
 </template>
 
 <style scoped>

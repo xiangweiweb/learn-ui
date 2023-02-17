@@ -1,0 +1,42 @@
+.ui-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    outline: none;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+    &.is-block{
+        width: 100%;
+    }
+
+    // size
+    &--large{
+        font-size: 16px;
+    }
+    &--default{
+        font-size: 14px;
+    }
+    &--small{
+        font-size: 12px;
+    }
+}
+
+.ui-button--default{
+    border-width: 0;
+    color: white;
+
+    &.ui-button--rimary{
+        background-color: blue
+    }
+
+    &.ui-button--danger{
+        background-color: red;
+    }
+
+    &.ui-button--info{
+        background-color: gray;
+    }
+}

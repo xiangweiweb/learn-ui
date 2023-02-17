@@ -2,7 +2,8 @@ import type { ExtractPropTypes, PropType } from 'vue';
 
 
 export type ButtonType = 'default' | 'primary' | 'ghost' | 'text' | 'link';
-export type ButtonSize = 'large' | 'default' | 'small';
+export type ButtonSize = 'large' | 'middle' | 'small';
+export type ButtonColor = 'primary' | 'danger' | 'info';
 
 export const buttonEmits = {
     click: (event: MouseEvent) => event instanceof MouseEvent
@@ -18,7 +19,11 @@ export const buttonProps = {
     },
     type: {
         type: String as PropType<ButtonType>,
-        default: 'default'
+        default: 'middle'
+    },
+    colorType: {
+        type: String as PropType<ButtonColor>,
+        default: 'primary',
     },
     disabled: Boolean,
     block: Boolean,

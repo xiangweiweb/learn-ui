@@ -31,7 +31,7 @@ export default defineComponent({
             emit('click', event);
         }
 
-        const { size, type, disabled, loading, block } = toRefs(props);
+        const { size, type, colorType, disabled, loading, block } = toRefs(props);
         console.log('size: ', size.value);
         console.log('disabled: ' , disabled.value);
 
@@ -42,7 +42,7 @@ export default defineComponent({
             ns.getBlock(),
             ns.getModifier(type.value),
             ns.getModifier(size.value),
-            ns.is('disabled', disabled.value),
+            ns.getModifier(colorType.value),
             ns.is('loading', loading.value),
             ns.is('block', block.value),
         ];
