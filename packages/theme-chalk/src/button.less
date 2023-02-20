@@ -1,12 +1,17 @@
-.ui-button {
+@import './common/var.less';
+
+.lu-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     outline: none;
+    cursor: pointer;
+
 
     &:disabled {
         cursor: not-allowed;
+        opacity: var(--lu-btn-default-opacity-disabled);
     }
     &.is-block{
         width: 100%;
@@ -14,29 +19,47 @@
 
     // size
     &--large{
+        height: var(--lu-btn-large-height);
+        padding: var(--lu-btn-large-padding);
         font-size: 16px;
     }
-    &--default{
+    &--middle{
+        height: var(--lu-btn-middle-height);
+        padding: var(--lu-btn-middle-padding);
         font-size: 14px;
     }
     &--small{
+        height: var(--lu-btn-small-height);
+        padding: var(--lu-btn-small-padding);
         font-size: 12px;
     }
 }
 
-.ui-button--default{
+.lu-button--default{
     border-width: 0;
-    color: white;
+    color: var(--lu-btn-default-color);
 
-    &.ui-button--rimary{
-        background-color: blue
+    &.lu-button--primary{
+        background-color: var(--lu-btn-default-bg);
+        &:hover{
+            background-color: var(--lu-btn-default-bg-hover);
+        }
+        &:active{
+            background-color: var(--lu-btn-default-bg-active);
+        }
     }
 
-    &.ui-button--danger{
-        background-color: red;
+    &.lu-button--danger{
+        background-color: var(--lu-btn-default-danger-bg);
+        &:hover{
+            background-color: var(--lu-btn-default-danger-bg-hover);
+        }
+        &:active{
+            background-color: var(--lu-btn-default-danger-bg-active);
+        }
     }
 
-    &.ui-button--info{
-        background-color: gray;
+    &.lu-button--info{
+        background-color: var(--lu-btn-info-bg);
     }
 }
