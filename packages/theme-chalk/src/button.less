@@ -8,58 +8,135 @@
     outline: none;
     cursor: pointer;
 
+    // 大小
+    height: var(--lu-btn-height);
+    padding: var(--lu-btn-padding);
+    font-size: var(--lu-btn-font-size);
+    border-radius: var(--lu-border-radius-base);
+
+    // 颜色
+    color: var(--lu-btn-text-color);
+    background-color: var(--lu-btn-bg-color);
+    border-color: var(--lu-btn-border-color);
+
+    &:hover{
+        background-color: var(--lu-btn-hover-bg-color);
+    }
+    &:active{
+        background-color: var(--lu-btn-active-bg-color);
+    }
 
     &:disabled {
         cursor: not-allowed;
-        opacity: var(--lu-btn-default-opacity-disabled);
+        background-color: var(--lu-btn-disabled-bg-color);
     }
+
     &.is-block{
         width: 100%;
+    }
+    &.is-loading{
+        cursor: default;
+        pointer-events: none;
     }
 
     // size
     &--large{
-        height: var(--lu-btn-large-height);
-        padding: var(--lu-btn-large-padding);
-        font-size: 16px;
+        --lu-btn-height: 40px;
+        --lu-btn-padding: 12px 19px;
+        --lu-btn-font-size: 16px;
     }
     &--middle{
-        height: var(--lu-btn-middle-height);
-        padding: var(--lu-btn-middle-padding);
-        font-size: 14px;
+        --lu-btn-height: 32px;
+        --lu-btn-padding: 8px 15px;
+        --lu-btn-font-size: 14px;
     }
     &--small{
-        height: var(--lu-btn-small-height);
-        padding: var(--lu-btn-small-padding);
-        font-size: 12px;
+        --lu-btn-height: 24px;
+        --lu-btn-padding: 5px 11px;
+        --lu-btn-font-size: 12px;
+        border-radius: calc(var(--lu-border-radius-base) - 1px);
+    }
+}
+// type=default
+.lu-button--default{
+    border: none;
+    --lu-btn-text-color: var(--lu-color-white);
+    --lu-btn-hover-text-color: var(--lu-color-white);
+    --lu-btn-disabled-text-color: var(--lu-color-white);
+
+    // color-type=primary
+    &.lu-button--primary{
+        --lu-btn-bg-color: var(--lu-color-primary);
+        --lu-btn-hover-bg-color: var(--lu-color-primary-1);
+        --lu-btn-active-bg-color: var(--lu-color-primary-2);
+        --lu-btn-disabled-bg-color: var(--lu-color-primary-3);
+    }
+    // color-type=danger
+    &.lu-button--danger{
+        --lu-btn-bg-color: var(--lu-color-danger);
+        --lu-btn-hover-bg-color: var(--lu-color-danger-1);
+        --lu-btn-active-bg-color: var(--lu-color-danger-2);
+        --lu-btn-disabled-bg-color: var(--lu-color-danger-3);
+    }
+
+    // color-type=info
+    &.lu-button--info{
+        --lu-btn-bg-color: var(--lu-color-info);
+        --lu-btn-hover-bg-color: var(--lu-color-info-1);
+        --lu-btn-active-bg-color: var(--lu-color-info-2);
+        --lu-btn-disabled-bg-color: var(--lu-color-info-3);
     }
 }
 
-.lu-button--default{
-    border-width: 0;
-    color: var(--lu-btn-default-color);
+// type=ghost
+.lu-button--ghost{
+    border-width: 1px;
+    border-style: solid;
+    --lu-btn-bg-color: var(--lu-color-white);
+    // color-type=primary
+    &.lu-button--primary{
+        --lu-btn-border-color: var(--ui-color-primary);
+        --lu-btn-text-color: var(--lu-color-primary);
+        --lu-btn-hover-bg-color: var(--lu-color-primary-1);
+        --lu-btn-active-bg-color: var(--lu-color-primary-2);
+        --lu-btn-disabled-bg-color: var(--lu-primary-info-3);
+    }
+    // color-type=info
+    &.lu-button--info{
+        --lu-btn-border-color: var(--ui-color-info);
+        --lu-btn-text-color: var(--lu-text-color-primary);
+        --lu-btn-hover-bg-color: var(--lu-color-info-1);
+        --lu-btn-active-bg-color: var(--lu-color-info-2);
+        --lu-btn-disabled-bg-color: var(--lu-color-info-3);
+    }
+    // color-type=danger
+    &.lu-button--danger{
+        --lu-btn-border-color: var(--lu-color-danger);
+        --lu-btn-text-color: var(--lu-color-danger);
+        --lu-btn-hover-bg-color: var(--lu-color-danger-1);
+        --lu-btn-active-bg-color: var(--lu-color-danger-2);
+        --lu-btn-disabled-bg-color: var(--lu-color-danger-3);
+    }
+}
+
+// type=link
+.lu-button--link{
+    border: none;
+    background-color: inherit;
+    &:hover, &:disabled{
+        color: var(--lu-btn-hover-text-color);
+    }
 
     &.lu-button--primary{
-        background-color: var(--lu-btn-default-bg);
-        &:hover{
-            background-color: var(--lu-btn-default-bg-hover);
-        }
-        &:active{
-            background-color: var(--lu-btn-default-bg-active);
-        }
+        --lu-btn-text-color: var(--lu-color-primary);
+        --lu-btn-hover-text-color: var(--lu-color-primary-2);
     }
-
-    &.lu-button--danger{
-        background-color: var(--lu-btn-default-danger-bg);
-        &:hover{
-            background-color: var(--lu-btn-default-danger-bg-hover);
-        }
-        &:active{
-            background-color: var(--lu-btn-default-danger-bg-active);
-        }
-    }
-
     &.lu-button--info{
-        background-color: var(--lu-btn-info-bg);
+        --lu-btn-text-color: var(--lu-text-color-primary);
+        --lu-btn-hover-text-color: var(--lu-color-info-3);
+    }
+    &.lu-button--danger{
+        --lu-btn-text-color: var(--lu-color-danger);
+        --lu-btn-hover-text-color: var(--lu-color-danger-3);
     }
 }

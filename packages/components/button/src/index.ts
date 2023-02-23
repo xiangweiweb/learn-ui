@@ -15,11 +15,11 @@ export type ButtonEmits = typeof buttonEmits;
 export const buttonProps = {
     size: {
         type: String as PropType<ButtonSize>,
-        default: 'default'
+        default: 'middle'
     },
     type: {
         type: String as PropType<ButtonType>,
-        default: 'middle'
+        default: 'default'
     },
     colorType: {
         type: String as PropType<ButtonColor>,

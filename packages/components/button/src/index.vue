@@ -2,7 +2,7 @@
   <button
     ref="_ref"
     :class="classList"
-    :disabled="disabled"
+    :disabled="disabled || loading"
     @click="handleClick">
     <span v-if="loading">
         加载中...
