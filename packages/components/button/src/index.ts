@@ -28,6 +28,7 @@ export const buttonProps = {
     disabled: Boolean,
     block: Boolean,
     loading: Boolean,
+    color: String,
 } as const;
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
 
