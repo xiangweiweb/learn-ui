@@ -1,15 +1,24 @@
 <template>
-  <button
-    ref="_ref"
-    :class="classList"
-    :style="style"
-    :disabled="disabled || loading"
-    @click="handleClick">
-    <span v-if="loading">
-        加载中...
-    </span>
-    <slot></slot>
-  </button>
+    <a   ref="_ref" v-if="href"
+        :href="href"
+        :target="target"
+        :class="classList"
+        :style="style"
+        :disabled="disabled"
+        @click="handleClick">
+        <slot></slot>
+    </a>
+    <button v-else
+        ref="_ref"
+        :class="classList"
+        :style="style"
+        :disabled="disabled || loading"
+        @click="handleClick">
+        <span v-if="loading">
+            加载中...
+        </span>
+        <slot></slot>
+    </button>
 </template>
 <!--
     link支持
@@ -37,18 +46,22 @@ export default defineComponent({
             emit('click', event);
         }
 
-        const { size, type, colorType, loading, block } = toRefs(props);
+        const { size, type, colorType, loading, block, href, target } = toRefs(props);
 
         // css
         const ns = useNamespace('button');
         // 1. class
         const classList = [
             ns.getBlock(),
-            ns.getModifier(type.value),
             ns.getModifier(size.value),
             ns.is('loading', loading.value),
             ns.is('block', block.value),
         ];
+        if(!href) {
+            classList.push(ns.getModifier(type.value));
+        }else{
+            classList.push(ns.getModifier('link'));
+        }
         // 2. style
         const style = useButtonStyle(props);
         if(!props.color) {
@@ -58,6 +71,8 @@ export default defineComponent({
             handleClick,
             classList,
             style,
+            href,
+            target,
         }
     }
 })

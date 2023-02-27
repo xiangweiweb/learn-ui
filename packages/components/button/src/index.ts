@@ -29,6 +29,9 @@ export const buttonProps = {
     block: Boolean,
     loading: Boolean,
     color: String,
+    // 文字链
+    href: String,
+    target: String,
 } as const;
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
 

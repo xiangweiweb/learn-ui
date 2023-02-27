@@ -92,6 +92,14 @@ import LuButton from '@learn-ui/components/button';
         color="red">
         自定义颜色
     </lu-button>
+
+    <lu-button
+        type="link"
+        size="small"
+        color="red"
+        href="https://baidu.com">
+        自定义颜色
+    </lu-button>
 </div>
 
 
