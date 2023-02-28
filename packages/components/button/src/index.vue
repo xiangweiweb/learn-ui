@@ -57,7 +57,8 @@ export default defineComponent({
             ns.is('loading', loading.value),
             ns.is('block', block.value),
         ];
-        if(!href) {
+
+        if(!href.value) {
             classList.push(ns.getModifier(type.value));
         }else{
             classList.push(ns.getModifier('link'));
