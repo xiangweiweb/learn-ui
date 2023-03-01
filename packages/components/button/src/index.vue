@@ -1,5 +1,6 @@
 <template>
-    <a   ref="_ref" v-if="href"
+    <a  v-if="href"
+        ref="_ref"
         :href="href"
         :target="target"
         :class="classList"
@@ -35,8 +36,6 @@ export default defineComponent({
     props: buttonProps,
     emits: buttonEmits,
     setup(props, {emit}) {
-        console.log('props:', props);
-
         const handleClick = (event: MouseEvent) => {
             if(props.disabled || props.loading) {
                 event.preventDefault();

@@ -40,7 +40,7 @@ export function useButtonStyle(props: ButtonProps) {
             styles['--lu-btn-text-color'] = buttonColor;
             styles['--lu-btn-hover-text-color'] = color.tint(40).toString();
         }
-        console.log(styles);
+        // console.log(styles);
         return styles;
     });
 }

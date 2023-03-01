@@ -1,11 +1,22 @@
 <script setup lang="ts">
 
 import LuButton from '@learn-ui/components/button';
-
-
+import LuInput from '@learn-ui/components/input';
 </script>
 
 <template>
+<div class="card">
+    <lu-input></lu-input>
+    <lu-input type="textarea">
+        <template #prefix>
+            https://
+        </template>
+        <template #suffix>
+            .com
+        </template>
+    </lu-input>
+</div>
+
 <div class="card">
     <h3>default 按钮</h3>
     <lu-button
@@ -101,6 +112,7 @@ import LuButton from '@learn-ui/components/button';
         自定义颜色
     </lu-button>
 </div>
+
 
 
 </template>
