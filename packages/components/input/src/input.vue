@@ -1,10 +1,13 @@
 <template>
     <div :class="ns.getBlock()">
         <slot name="prepend"  :class="ns.getElement('prepend')"></slot>
-        <div :class="ns.getElement('warpper')">
+        <div :class="wrapperCls">
             <slot name="prefix"  :class="ns.getElement('prefix')"></slot>
 
-            <input :type="type" :class="ns.getElement('inner')" />
+            <input :type="type"
+                :class="ns.getElement('inner')"
+                @focus="handleFocus"
+                @blur="handleBlur"/>
 
             <slot name="suffix" :class="ns.getElement('suffix')"></slot>
         </div>
@@ -14,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 import { useNamespace } from '@learn-ui/utils/use-namespace';
 import { inputEmits, inputProps } from './input';
 
@@ -26,17 +29,27 @@ export default defineComponent({
         // css
         const ns = useNamespace('input');
         const { type, disabled, readonly, size } = props;
-        console.log('size', size);
-        const classList = [
-            ns.getBlock(),
-            ns.getModifier(size),
-         ];
-
+        const focused = ref(false);
+        const handleFocus = (event: FocusEvent) => {
+            focused.value = true;
+            emit('focus', event);
+        };
+        const handleBlur = (event: FocusEvent) => {
+            focused.value = false;
+            emit('blur', event);
+        }
+        const wrapperCls = computed(() => [
+            ns.getElement('wrapper'),
+            ns.is('focus', focused.value)
+        ]);
         return {
             type,
             disabled,
             readonly,
-            ns
+            ns,
+            handleFocus,
+            handleBlur,
+            wrapperCls
         }
     }
 });

@@ -1,6 +1,6 @@
 export const inputEmits = {
-    blur: (event: MouseEvent) => {},
-    focus: (event: MouseEvent) => {},
+    blur: (event: FocusEvent) => {},
+    focus: (event: FocusEvent) => {},
     change: (event: MouseEvent) => {},
     input: (event: MouseEvent) => {},
     clean: (event: MouseEvent) => {},

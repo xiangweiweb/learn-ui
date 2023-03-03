@@ -1,3 +1,47 @@
 .lu-input{
-    border: 1px;
+    display: inline-flex;
+    width: 100%;
+    box-sizing: border-box;
+    vertical-align: middle;
+    font-size: var(--lu-font-size-medium);
+    --el-input-height: var(--lu-component-size);
+    --lu-input-borde-color: var(--lu-border-color);
+    --lu-input-hover-border-color: var(--lu-border-color-hover);
+    --lu-input-focus-border-color: var(--lu-color-primary);
+}
+.lu-input__wrapper{
+    display: inline-flex;
+    flex-grow: 1;
+    align-items: center;
+    padding: 1px 11px;
+    box-shadow: 0 0 0 1px var(--lu-input-borde-color) inset;
+    border-radius: var(--lu-border-radius-base);
+    transition: var(--lu-transition-box-shadow);
+    --lu-input-inner-height: calc(var(--lu-component-size) - 2px);
+    &:hover {
+        box-shadow: 0 0 0 1px var(--lu-input-hover-border-color) inset;
+    }
+    &.is-focus{
+        box-shadow: 0 0 0 1px var(--lu-input-focus-border-color) inset;
+    }
+    &.lu-input--large{
+        --lu-input-inner-height: calc(var(--lu-component-size-large) - 2px);
+    }
+    &.lu-input--small{
+        --lu-input-inner-height: calc(var(--lu-component-size-small) - 2px);
+    }
+}
+
+
+.lu-input__inner{
+    width: 100%;
+    box-sizing: border-box;
+    flex-grow: 1;
+    height: var(--lu-input-inner-height);
+    line-height: 1.5;
+    padding: 0;
+    outline: none;
+    border: none;
+    background: none;
+    color: var(--lu-text-color-regular);
 }

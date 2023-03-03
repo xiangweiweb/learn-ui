@@ -1,3 +1,6 @@
+body{
+    color: var(--lu-text-color-regular);
+}
 :root {
     --lu-color-white: #fff;
 
@@ -36,8 +39,15 @@
     --lu-border-radius-round: 20px;
     --lu-border-radius-base: 4px;
 
-    --el-component-size-large: 40px;
-    --el-component-size: 32px;
-    --el-component-size-small: 24px;
+    --lu-border-color: #dcdfe6;
+    --lu-border-color-hover: #c0c4cc;
+
+    --lu-component-size-large: 40px;
+    --lu-component-size: 32px;
+    --lu-component-size-small: 24px;
+
+    --lu-transition-duration-fast: .2s;
+    --lu-transition-function-ease-in-out-bezier: cubic-bezier(.645, .045, .355, 1);
+    --lu-transition-box-shadow: box-shadow var(--lu-transition-duration-fast) var(--lu-transition-function-ease-in-out-bezier);
 
 }
