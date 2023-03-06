@@ -6,7 +6,9 @@ import LuInput from '@learn-ui/components/input';
 
 <template>
 <div class="card">
-    <lu-input></lu-input>
+    <lu-input size="large" placeholder="请输入"></lu-input>
+    <lu-input placeholder="请输入"></lu-input>
+    <lu-input size="small" placeholder="请输入"></lu-input>
     <lu-input type="textarea">
         <template #prefix>
             https://

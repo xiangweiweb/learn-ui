@@ -1,11 +1,12 @@
 <template>
-    <div :class="ns.getBlock()">
+    <div :class="blockCls">
         <slot name="prepend"  :class="ns.getElement('prepend')"></slot>
         <div :class="wrapperCls">
             <slot name="prefix"  :class="ns.getElement('prefix')"></slot>
 
             <input :type="type"
                 :class="ns.getElement('inner')"
+                :placeholder="placeholder"
                 @focus="handleFocus"
                 @blur="handleBlur"/>
 
@@ -28,7 +29,7 @@ export default defineComponent({
     setup(props, {emit}) {
         // css
         const ns = useNamespace('input');
-        const { type, disabled, readonly, size } = props;
+        const { type, disabled, readonly, size, placeholder } = props;
         const focused = ref(false);
         const handleFocus = (event: FocusEvent) => {
             focused.value = true;
@@ -38,18 +39,26 @@ export default defineComponent({
             focused.value = false;
             emit('blur', event);
         }
+
+        const blockCls = [
+            ns.getBlock(),
+            ns.getModifier(size),
+        ];
         const wrapperCls = computed(() => [
             ns.getElement('wrapper'),
             ns.is('focus', focused.value)
         ]);
+
         return {
             type,
             disabled,
             readonly,
+            placeholder,
             ns,
+            blockCls,
+            wrapperCls,
             handleFocus,
             handleBlur,
-            wrapperCls
         }
     }
 });
