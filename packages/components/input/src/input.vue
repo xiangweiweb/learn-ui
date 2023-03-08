@@ -6,11 +6,19 @@
 
             <input :type="type"
                 :class="ns.getElement('inner')"
+                :value="value"
                 :placeholder="placeholder"
                 @focus="handleFocus"
-                @blur="handleBlur"/>
+                @blur="handleBlur"
+                @input="handleInput"
+                @change="handleChange"/>
+            <span v-if="showClear" :class="ns.getElement('suffix')">
+                <slot name="suffix" ></slot>
+                <span  v-if="showClear"
+                    :class="ns.getElement('clear')"
+                    @click="clear">x</span>
+            </span>
 
-            <slot name="suffix" :class="ns.getElement('suffix')"></slot>
         </div>
         <slot name="append"  :class="ns.getElement('append')"></slot>
     </div>
@@ -31,6 +39,7 @@ export default defineComponent({
         const ns = useNamespace('input');
         const { type, disabled, readonly, size, placeholder } = props;
         const focused = ref(false);
+        const hovering = ref(false);
         const handleFocus = (event: FocusEvent) => {
             focused.value = true;
             emit('focus', event);
@@ -38,7 +47,29 @@ export default defineComponent({
         const handleBlur = (event: FocusEvent) => {
             focused.value = false;
             emit('blur', event);
-        }
+        };
+        const handleMouseEnter = (evt: MouseEvent) => {
+            hovering.value = true
+            emit('mouseenter', evt);
+        };
+        const handleMouseLeave = (evt: MouseEvent) => {
+            hovering.value = false
+            emit('mouseleave', evt);
+        };
+        const handleInput = (evt: InputEvent) => {
+            const target =  evt.target as HTMLInputElement;
+            console.log(target.value, ' input');
+            emit('input', target.value);
+        };
+        const handleChange = (evt: InputEvent) => {
+            const target =  evt.target as HTMLInputElement;
+            emit('change', target.value);
+        };
+        const clear = () => {
+            emit('input', '');
+            emit('change', '');
+            emit('clear');
+        };
 
         const blockCls = [
             ns.getBlock(),
@@ -49,16 +80,29 @@ export default defineComponent({
             ns.is('focus', focused.value)
         ]);
 
+        const showClear = computed(() => {
+            const bool = props.clearable &&
+                (!!props.value) &&
+                (focused.value || hovering.value);
+            return bool;
+        });
+
         return {
             type,
             disabled,
             readonly,
+            showClear,
             placeholder,
             ns,
             blockCls,
             wrapperCls,
             handleFocus,
             handleBlur,
+            handleMouseEnter,
+            handleMouseLeave,
+            handleInput,
+            handleChange,
+            clear
         }
     }
 });

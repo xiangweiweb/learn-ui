@@ -1,9 +1,11 @@
 export const inputEmits = {
-    blur: (event: FocusEvent) => {},
+    change: (value: string) => {},
+    input: (value: string) => {},
+    clear: () => true,
     focus: (event: FocusEvent) => {},
-    change: (event: MouseEvent) => {},
-    input: (event: MouseEvent) => {},
-    clean: (event: MouseEvent) => {},
+    blur: (event: FocusEvent) => {},
+    mouseenter: (event: MouseEvent) => {},
+    mouseleave: (event: MouseEvent) => {},
 }
 
 export const inputProps = {
@@ -11,6 +13,10 @@ export const inputProps = {
     clearable: {
         type: Boolean,
         default: false
+    },
+    value: {
+        type: [String, Number],
+        default: '',
     },
     type: {
         type: String,
