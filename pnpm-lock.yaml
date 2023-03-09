@@ -9,7 +9,7 @@ importers:
       '@learn-ui/utils': workspace:^1.0.0
       '@types/node': ^18.13.0
       typescript: ^4.9.3
-      vue: ^3.2.45
+      vue: ^3.2.47
     dependencies:
       '@learn-ui/components': link:packages/components
       '@learn-ui/theme-chalk': link:packages/theme-chalk
@@ -20,7 +20,10 @@ importers:
       vue: 3.2.47
 
   packages/components:
-    specifiers: {}
+    specifiers:
+      '@ctrl/tinycolor': ^3.6.0
+    dependencies:
+      '@ctrl/tinycolor': 3.6.0
 
   packages/theme-chalk:
     specifiers: {}
@@ -69,6 +72,11 @@ packages:
       '@babel/helper-string-parser': 7.19.4
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
+
+  /@ctrl/tinycolor/3.6.0:
+    resolution: {integrity: sha512-/Z3l6pXthq0JvMYdUFyX9j0MaCltlIn6mfh9jLyQwg5aPKxkyNa0PTHtU1AlFXLNk55ZuAeJRcpvq+tmLfKmaQ==}
+    engines: {node: '>=10'}
+    dev: false
 
   /@esbuild/android-arm/0.16.17:
     resolution: {integrity: sha512-N9x1CMXVhtWEAMS7pNNONyA14f71VPQN9Cnavj1XQh6T7bskqiLLrSca4O0Vr8Wdcga943eThxnVp3JLnBMYtw==}

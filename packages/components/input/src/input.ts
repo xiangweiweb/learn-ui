@@ -1,6 +1,9 @@
+const UPDATE_MODEL_EVENT = 'update:modelValue';
+
 export const inputEmits = {
     change: (value: string) => {},
     input: (value: string) => {},
+    [UPDATE_MODEL_EVENT]: (value: string) => {},
     clear: () => true,
     focus: (event: FocusEvent) => {},
     blur: (event: FocusEvent) => {},
@@ -14,7 +17,7 @@ export const inputProps = {
         type: Boolean,
         default: false
     },
-    value: {
+    modelValue: {
         type: [String, Number],
         default: '',
     },

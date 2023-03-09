@@ -1,22 +1,30 @@
 <script setup lang="ts">
-
+import { ref } from 'vue';
 import LuButton from '@learn-ui/components/button';
 import LuInput from '@learn-ui/components/input';
+const input = ref('init');
+
+const changeValue = (value: string) => {
+    console.log('父组件中监听change: ' + value);
+    console.log('双向绑定的值：'+ input.value);
+}
+
 </script>
 
 <template>
 <div class="card">
-    <lu-input size="large" placeholder="请输入"></lu-input>
-    <lu-input placeholder="请输入" clearable></lu-input>
-    <lu-input size="small" placeholder="请输入"></lu-input>
-    <lu-input type="textarea">
+    <!-- <lu-input size="large" placeholder="请输入" v-model="input"></lu-input> -->
+    <lu-input placeholder="请输入" clearable v-model="input" @change="changeValue"></lu-input>
+    <div>输入框的值 {{ input }}</div>
+    <!-- <lu-input size="small" placeholder="请输入" v-model="input"></lu-input> -->
+    <!-- <lu-input type="textarea">
         <template #prefix>
             https://
         </template>
         <template #suffix>
             .com
         </template>
-    </lu-input>
+    </lu-input> -->
 </div>
 
 <div class="card">
