@@ -41,8 +41,10 @@ export const inputProps = {
         type: Boolean,
         default: false,
     },
-    'max-length': Number,
-    'show-word-limit': Boolean
+    showWordLimit: {
+        type: Boolean,
+        default: false,
+    }
 }
 
 export type InputEmits = typeof inputEmits;

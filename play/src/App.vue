@@ -14,7 +14,13 @@ const changeValue = (value: string) => {
 <template>
 <div class="card">
     <!-- <lu-input size="large" placeholder="请输入" v-model="input"></lu-input> -->
-    <lu-input placeholder="请输入" clearable v-model="input" @change="changeValue"></lu-input>
+    <lu-input placeholder="请输入"
+        clearable
+        v-model="input"
+        @change="changeValue"
+        show-word-limit
+        maxlength="4">
+    </lu-input>
     <div>输入框的值 {{ input }}</div>
     <!-- <lu-input size="small" placeholder="请输入" v-model="input"></lu-input> -->
     <!-- <lu-input type="textarea">

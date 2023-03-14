@@ -7,37 +7,42 @@
             <input :type="type"
                 :class="ns.getElement('inner')"
                 :placeholder="placeholder"
+                v-bind="$attrs"
                 v-model="inputValue"
                 @focus="handleFocus"
                 @blur="handleBlur"
                 @change="handleChange"/>
-            <span v-if="showClear" :class="ns.getElement('suffix')">
-                <slot name="suffix" ></slot>
-                <span  v-if="showClear"
-                    :class="ns.getElement('clear')"
-                    @mousedown.prevent="void 0"
-                    @click="onClear">x</span>
+            <span v-if="showClear || isWordLimitVisible" :class="ns.getElement('suffix')">
+                <span  :class="ns.getElement('suffix-inner')">
+                    <template v-if="!showClear && !isWordLimitVisible">
+                        <slot name="suffix" ></slot>
+                    </template>
+                    <span
+                        :class="ns.getElement('clear')"
+                        @mousedown.prevent="void 0"
+                        @click="onClear">x</span>
+                    <span v-if="isWordLimitVisible" :class="ns.getElement('count')">
+                        {{ textLength }} / {{ $attrs.maxlength }}
+                    </span>
+                </span>
             </span>
-
         </div>
         <slot name="append"  :class="ns.getElement('append')"></slot>
-    </div>
+</div>
 
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed , watchEffect, shallowRef, onMounted} from 'vue';
+import { defineComponent, ref, computed, onMounted, useAttrs } from 'vue';
 import { useNamespace } from '@learn-ui/utils/use-namespace';
 import { inputEmits, inputProps } from './input';
 
 export default defineComponent({
     name: 'lu-input',
+    inheritAttrs: false,
     props: inputProps,
     emits: inputEmits,
     setup(props, {emit}) {
-        onMounted(() => {
-            console.log('mounted: ', props.modelValue);
-        })
         // css
         const ns = useNamespace('input');
         const { type, disabled, readonly, size, placeholder } = props;
@@ -63,7 +68,6 @@ export default defineComponent({
         const handleChange = (evt: Event) => {
             const target =  evt.target as HTMLInputElement;
             emit('change', target.value);
-            console.log('change ', target.value);
         };
         const onClear = () => {
             // 需要阻止事件mousedown，不然input的blur会被触发，click事件不会触发
@@ -88,6 +92,7 @@ export default defineComponent({
                 (focused.value || hovering.value);
             return bool;
         });
+        // 实现v-model双向绑定
         const inputValue = computed({
             get: () => props.modelValue,
             set: (val) => {
@@ -95,6 +100,17 @@ export default defineComponent({
                 emit('update:modelValue', val);
                 emit('input', val);
             }
+        });
+        const textLength = computed(() => {
+            const str = props.modelValue ? props.modelValue.toString() : '';
+            return str.length;
+        });
+        const attrs = useAttrs();
+        const isWordLimitVisible = computed(() => {
+            return props.showWordLimit &&
+            !!attrs.maxlength &&
+            !disabled &&
+            !readonly
         });
 
         return {
@@ -107,6 +123,8 @@ export default defineComponent({
             blockCls,
             wrapperCls,
             inputValue,
+            isWordLimitVisible,
+            textLength,
             handleFocus,
             handleBlur,
             handleMouseEnter,
