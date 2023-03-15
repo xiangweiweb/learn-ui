@@ -1,5 +1,7 @@
 <template>
-    <div :class="blockCls">
+    <div :class="blockCls"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave">
         <slot name="prepend"  :class="ns.getElement('prepend')"></slot>
         <div :class="wrapperCls">
             <slot name="prefix"  :class="ns.getElement('prefix')"></slot>
@@ -17,7 +19,7 @@
                     <template v-if="!showClear && !isWordLimitVisible">
                         <slot name="suffix" ></slot>
                     </template>
-                    <span
+                    <span v-if="showClear"
                         :class="ns.getElement('clear')"
                         @mousedown.prevent="void 0"
                         @click="onClear">x</span>
@@ -61,7 +63,7 @@ export default defineComponent({
             emit('mouseenter', evt);
         };
         const handleMouseLeave = (evt: MouseEvent) => {
-            hovering.value = false
+            hovering.value = false;
             emit('mouseleave', evt);
         };
 
