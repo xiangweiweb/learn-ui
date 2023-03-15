@@ -2,36 +2,52 @@
     <div :class="blockCls"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave">
-        <slot name="prepend"  :class="ns.getElement('prepend')"></slot>
-        <div :class="wrapperCls">
-            <slot name="prefix"  :class="ns.getElement('prefix')"></slot>
+        <template v-if="type!=='textarea'">
+            <slot name="prepend"  :class="ns.getElement('prepend')"></slot>
+            <div :class="wrapperCls">
+                <slot name="prefix"  :class="ns.getElement('prefix')"></slot>
 
-            <input :type="type"
-                :class="ns.getElement('inner')"
+                <input :type="type"
+                    :class="ns.getElement('inner')"
+                    :placeholder="placeholder"
+                    v-bind="$attrs"
+                    v-model="inputValue"
+                    @focus="handleFocus"
+                    @blur="handleBlur"
+                    @change="handleChange"/>
+                <span v-if="showClear || isWordLimitVisible" :class="ns.getElement('suffix')">
+                    <span  :class="ns.getElement('suffix-inner')">
+                        <template v-if="!showClear && !isWordLimitVisible">
+                            <slot name="suffix" ></slot>
+                        </template>
+                        <span v-if="showClear"
+                            :class="ns.getElement('clear')"
+                            @mousedown.prevent="void 0"
+                            @click="onClear">x</span>
+                        <span v-if="isWordLimitVisible" :class="ns.getElement('count')">
+                            {{ textLength }} / {{ $attrs.maxlength }}
+                        </span>
+                    </span>
+                </span>
+            </div>
+            <slot name="append"  :class="ns.getElement('append')"></slot>
+        </template>
+
+        <template v-else>
+            <textarea ref="textarea"
+                :class="nsTextarea.getElement('inner')"
                 :placeholder="placeholder"
                 v-bind="$attrs"
                 v-model="inputValue"
                 @focus="handleFocus"
                 @blur="handleBlur"
-                @change="handleChange"/>
-            <span v-if="showClear || isWordLimitVisible" :class="ns.getElement('suffix')">
-                <span  :class="ns.getElement('suffix-inner')">
-                    <template v-if="!showClear && !isWordLimitVisible">
-                        <slot name="suffix" ></slot>
-                    </template>
-                    <span v-if="showClear"
-                        :class="ns.getElement('clear')"
-                        @mousedown.prevent="void 0"
-                        @click="onClear">x</span>
-                    <span v-if="isWordLimitVisible" :class="ns.getElement('count')">
-                        {{ textLength }} / {{ $attrs.maxlength }}
-                    </span>
-                </span>
+                @change="handleChange">
+            </textarea>
+            <span v-if="isWordLimitVisible" :class="nsTextarea.getElement('count')">
+                {{ textLength }} / {{ $attrs.maxlength }}
             </span>
-        </div>
-        <slot name="append"  :class="ns.getElement('append')"></slot>
-</div>
-
+        </template>
+    </div>
 </template>
 
 <script lang="ts">
@@ -47,6 +63,7 @@ export default defineComponent({
     setup(props, {emit}) {
         // css
         const ns = useNamespace('input');
+        const nsTextarea = useNamespace('textarea');
         const { type, disabled, readonly, size, placeholder } = props;
         const focused = ref(false);
         const hovering = ref(false);
@@ -79,10 +96,13 @@ export default defineComponent({
             emit('clear');
         };
 
-        const blockCls = [
-            ns.getBlock(),
-            ns.getModifier(size),
-        ];
+        const blockCls = computed(() => {
+            const list = [ type === 'textarea' ? nsTextarea.getBlock() : ns.getBlock() ];
+            if(type !== 'textarea') {
+                list.push(ns.getModifier(size));
+            }
+            return list;
+        });
         const wrapperCls = computed(() => [
             ns.getElement('wrapper'),
             ns.is('focus', focused.value)
@@ -122,6 +142,7 @@ export default defineComponent({
             showClear,
             placeholder,
             ns,
+            nsTextarea,
             blockCls,
             wrapperCls,
             inputValue,

@@ -57,8 +57,6 @@
     color: var(--lu-text-color-regular);
 }
 
-
-
 .lu-input__suffix{
     height: 100%;
     display: inline-flex;
@@ -83,4 +81,50 @@
     color: var(--lu-color-info);
     font-size: var(--lu-font-size-small);
     margin-left: 8px;
+}
+
+// textarea
+.lu-textarea{
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+    box-sizing: border-box;
+    vertical-align: bottom;
+    font-size: var(--lu-font-size-medium);
+}
+.lu-textarea__inner{
+    width: 100%;
+    box-sizing: border-box;
+    vertical-align: middle;
+    flex-grow: 1;
+    line-height: 1.5;
+    font-size: inherit;
+    padding: 5px 11px;
+    outline: none;
+    border: none;
+    background: none;
+    color: var(--lu-text-color-regular);
+
+    --lu-input-borde-color: var(--lu-border-color);
+    --lu-input-hover-border-color: var(--lu-border-color-hover);
+    --lu-input-focus-border-color: var(--lu-color-primary);
+
+    box-shadow: 0 0 0 1px var(--lu-input-borde-color) inset;
+    border-radius: var(--lu-border-radius-base);
+    transition: var(--lu-transition-box-shadow);
+    &:hover {
+        box-shadow: 0 0 0 1px var(--lu-input-hover-border-color) inset;
+    }
+    &:focus{
+        box-shadow: 0 0 0 1px var(--lu-input-focus-border-color) inset;
+    }
+}
+
+.lu-textarea__count{
+    position: absolute;
+    color: var(--lu-color-info);
+    font-size: var(--lu-font-size-small);
+    line-height: 14px;
+    bottom: 5px;
+    right: 10px;
 }

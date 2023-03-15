@@ -20,17 +20,21 @@ const changeValue = (value: string) => {
         @change="changeValue"
         show-word-limit
         maxlength="4">
-    </lu-input>
-    <div>输入框的值 {{ input }}</div>
-    <!-- <lu-input size="small" placeholder="请输入" v-model="input"></lu-input> -->
-    <!-- <lu-input type="textarea">
         <template #prefix>
             https://
         </template>
         <template #suffix>
             .com
         </template>
-    </lu-input> -->
+    </lu-input>
+    <div>输入框的值 {{ input }}</div>
+    <!-- <lu-input size="small" placeholder="请输入" v-model="input"></lu-input> -->
+    <lu-input type="textarea"
+        rows="3"
+        maxlength="30"
+        :show-word-limit="true">
+
+    </lu-input>
 </div>
 
 <div class="card">
