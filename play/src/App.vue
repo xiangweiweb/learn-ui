@@ -16,10 +16,9 @@ const changeValue = (value: string) => {
     <!-- <lu-input size="large" placeholder="请输入" v-model="input"></lu-input> -->
     <lu-input placeholder="请输入"
         clearable
-        v-model="input"
         @change="changeValue"
         show-word-limit
-        maxlength="4">
+        maxlength="40">
         <template #prefix>
             https://
         </template>
@@ -30,9 +29,10 @@ const changeValue = (value: string) => {
     <div>输入框的值 {{ input }}</div>
     <!-- <lu-input size="small" placeholder="请输入" v-model="input"></lu-input> -->
     <lu-input type="textarea"
-        rows="3"
-        maxlength="30"
-        :show-word-limit="true">
+        rows="1"
+        :show-word-limit="true"
+        :autosize="{minRows: 2, maxRows: 3}"
+        v-model="input">
 
     </lu-input>
 </div>

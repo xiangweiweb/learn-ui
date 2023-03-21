@@ -36,6 +36,7 @@
         <template v-else>
             <textarea ref="textarea"
                 :class="nsTextarea.getElement('inner')"
+                :style="textareaStyle"
                 :placeholder="placeholder"
                 v-bind="$attrs"
                 v-model="inputValue"
@@ -51,9 +52,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted, useAttrs } from 'vue';
+import {
+    defineComponent, ref, computed, onMounted, useAttrs,
+    shallowRef, StyleValue, nextTick, watch
+} from 'vue';
+import { isObject } from '@vue/shared';
 import { useNamespace } from '@learn-ui/utils/use-namespace';
 import { inputEmits, inputProps } from './input';
+import { calcTextareaHeight } from './util';
 
 export default defineComponent({
     name: 'lu-input',
@@ -95,7 +101,24 @@ export default defineComponent({
             emit('change', '');
             emit('clear');
         };
-
+        // 创建和$refs.textarea同名的变量，然后expose，即可访问dom元素
+        const textarea = shallowRef<HTMLTextAreaElement>();
+        const textareaCalcStyle = shallowRef();
+        const textareaStyle = computed<StyleValue>(() => [
+            textareaCalcStyle.value,
+        ]);
+        const resizeTextarea = () => {
+            const { type, autosize } = props;
+            if(type !== 'textarea' || !textarea.value) return;
+            if(autosize) {
+                // autosize=true，calcTextareaHeight计算的minRows=1，maxRows=null
+                const minRows = isObject(autosize) ? autosize.minRows : undefined;
+                const maxRows = isObject(autosize) ? autosize.maxRows : undefined;
+                textareaCalcStyle.value = {
+                    ...calcTextareaHeight(textarea.value, minRows, maxRows)
+                }
+            }
+        };
         const blockCls = computed(() => {
             const list = [ type === 'textarea' ? nsTextarea.getBlock() : ns.getBlock() ];
             if(type !== 'textarea') {
@@ -116,7 +139,11 @@ export default defineComponent({
         });
         // 实现v-model双向绑定
         const inputValue = computed({
-            get: () => props.modelValue,
+            get: () => {
+                const value = props.modelValue;
+                console.log('get model value: ' + value);
+                return value;
+            },
             set: (val) => {
                 val = val.toString();
                 emit('update:modelValue', val);
@@ -135,6 +162,26 @@ export default defineComponent({
             !readonly
         });
 
+        watch(
+        () => props.modelValue,
+        () => {
+            console.log('watch modelValue');
+            nextTick(() => resizeTextarea());
+        });
+
+        watch(
+        () => props.type,
+        async () => {
+            await nextTick();
+            console.log('watch prop type');
+            resizeTextarea();
+        });
+
+        onMounted(() => {
+            console.log('mounted');
+            nextTick(resizeTextarea);
+        });
+
         return {
             type,
             disabled,
@@ -145,6 +192,7 @@ export default defineComponent({
             nsTextarea,
             blockCls,
             wrapperCls,
+            textareaStyle,
             inputValue,
             isWordLimitVisible,
             textLength,
@@ -154,7 +202,8 @@ export default defineComponent({
             handleMouseLeave,
             handleChange,
             onClear,
-        }
+            textarea,
+        };
     }
 });
 </script>

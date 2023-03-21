@@ -1,3 +1,5 @@
+import type { PropType } from 'vue';
+
 const UPDATE_MODEL_EVENT = 'update:modelValue';
 
 export const inputEmits = {
@@ -10,6 +12,9 @@ export const inputEmits = {
     mouseenter: (event: MouseEvent) => {},
     mouseleave: (event: MouseEvent) => {},
 }
+
+export type InputAutoSize = { minRows?: number; maxRows?: number } | boolean;
+
 
 export const inputProps = {
     placeholder: String,
@@ -30,7 +35,7 @@ export const inputProps = {
         default: 'middle',
     },
     autosize: {
-        type: Boolean,
+        type: [Boolean, Object] as PropType<InputAutoSize>,
         default: false,
     },
     disabled: {
