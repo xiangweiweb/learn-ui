@@ -79,7 +79,7 @@ export function calcTextareaHeight(
     }
 
     hiddenTextarea.value = '';
-    const singleRowHeight = hiddenTextarea.scrollHeight - paddingSize;
+    const singleRowHeight = hiddenTextarea.scrollHeight - paddingSize - borderSize;
     console.log('一行的高度为：' + singleRowHeight);
     if(typeof minRows === 'number') {
         let minHeight = singleRowHeight * minRows;

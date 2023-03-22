@@ -14,7 +14,8 @@
   "dependencies": {
     "@learn-ui/components": "workspace:^1.0.0",
     "@learn-ui/theme-chalk": "workspace:^1.0.0",
-    "@learn-ui/utils": "workspace:^1.0.0"
+    "@learn-ui/utils": "workspace:^1.0.0",
+    "@vue/shared": "^3.2.47"
   },
   "devDependencies": {
     "@types/node": "^18.13.0",

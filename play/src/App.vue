@@ -32,7 +32,8 @@ const changeValue = (value: string) => {
         rows="1"
         :show-word-limit="true"
         :autosize="{minRows: 2, maxRows: 3}"
-        v-model="input">
+        v-model="input"
+        maxlength="40">
 
     </lu-input>
 </div>
