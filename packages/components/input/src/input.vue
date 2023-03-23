@@ -10,6 +10,8 @@
                 <input :type="type"
                     :class="ns.getElement('inner')"
                     :placeholder="placeholder"
+                    :readonly="readonly"
+                    :disabled="disabled"
                     v-bind="$attrs"
                     v-model="inputValue"
                     @focus="handleFocus"
@@ -38,6 +40,8 @@
                 :class="nsTextarea.getElement('inner')"
                 :style="textareaStyle"
                 :placeholder="placeholder"
+                :disabled="disabled"
+                :readonly="readonly"
                 v-bind="$attrs"
                 v-model="inputValue"
                 @focus="handleFocus"
@@ -124,6 +128,7 @@ export default defineComponent({
             if(type !== 'textarea') {
                 list.push(ns.getModifier(size));
             }
+            list.push(ns.is('disabled', disabled));
             return list;
         });
         const wrapperCls = computed(() => [
@@ -133,6 +138,8 @@ export default defineComponent({
 
         const showClear = computed(() => {
             const bool = props.clearable &&
+               !disabled &&
+               !readonly &&
                 (!!props.modelValue) &&
                 (focused.value || hovering.value);
             return bool;

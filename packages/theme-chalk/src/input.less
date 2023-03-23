@@ -17,6 +17,18 @@
         --lu-input-height: var(--lu-component-size-small);
         font-size: var(--lu-font-size-small);
     }
+
+    &.is-disabled{
+        cursor: not-allowed;
+        .lu-input__wrapper{
+            background-color: var(--lu-bg-color-disabled);
+            box-shadow: 0 0 0 1px var(--lu-border-color-disabled) inset;;
+        }
+        .lu-input__inner{
+            color: var(--lu-text-color-disabled);
+            cursor: not-allowed;
+        }
+    }
 }
 .lu-input__wrapper{
     display: inline-flex;
@@ -118,6 +130,12 @@
     }
     &:focus{
         box-shadow: 0 0 0 1px var(--lu-input-focus-border-color) inset;
+    }
+    &:disabled{
+        background-color: var(--lu-bg-color-disabled);
+        box-shadow: 0 0 0 1px var(--lu-border-color-disabled) inset;
+        color: var(--lu-text-color-disabled);
+        cursor: not-allowed;
     }
 }
 

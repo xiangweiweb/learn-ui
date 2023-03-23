@@ -18,6 +18,7 @@ const changeValue = (value: string) => {
         clearable
         @change="changeValue"
         show-word-limit
+        disabled
         maxlength="40">
         <template #prefix>
             https://
@@ -33,7 +34,8 @@ const changeValue = (value: string) => {
         :show-word-limit="true"
         :autosize="{minRows: 2, maxRows: 3}"
         v-model="input"
-        maxlength="40">
+        maxlength="40"
+        disabled>
 
     </lu-input>
 </div>
