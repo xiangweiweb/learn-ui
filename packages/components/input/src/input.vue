@@ -148,7 +148,7 @@ export default defineComponent({
         const inputValue = computed({
             get: () => {
                 const value = props.modelValue;
-                console.log('get model value: ' + value);
+                console.log('重新计算modelValue: ' + value);
                 return value;
             },
             set: (val) => {
@@ -185,7 +185,7 @@ export default defineComponent({
         });
 
         onMounted(() => {
-            console.log('mounted');
+            console.log('input mounted');
             nextTick(resizeTextarea);
         });
 

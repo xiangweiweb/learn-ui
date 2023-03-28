@@ -8,7 +8,12 @@ const changeValue = (value: string) => {
     console.log('父组件中监听change: ' + value);
     console.log('双向绑定的值：'+ input.value);
 }
-
+const onFocus = (event: FocusEvent) => {
+    console.log('onFocus: ', event);
+};
+const onBlur = (event: FocusEvent) => {
+    console.log('失去焦点', event);
+}
 </script>
 
 <template>
@@ -18,8 +23,10 @@ const changeValue = (value: string) => {
         clearable
         @change="changeValue"
         show-word-limit
-        disabled
-        maxlength="40">
+        maxlength="40"
+        v-model="input"
+        @focus="onFocus"
+        @blur="onBlur">
         <template #prefix>
             https://
         </template>
