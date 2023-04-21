@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "pnpm -C play dev",
     "test": "vitest",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "build": "vite build -c scripts/vite.config.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,12 @@
     "@learn-ui/components": "workspace:^1.0.0",
     "@learn-ui/theme-chalk": "workspace:^1.0.0",
     "@learn-ui/utils": "workspace:^1.0.0",
-    "@vue/shared": "^3.2.47"
+    "@morehook/core": "^1.10.8",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@vue/compiler-sfc": "^3.2.47",
+    "@vue/shared": "^3.2.47",
+    "fast-glob": "^3.2.12",
+    "rollup-plugin-vue": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.13.0",
@@ -24,7 +30,10 @@
     "@vitest/coverage-c8": "^0.29.3",
     "@vue/test-utils": "^2.3.2",
     "jsdom": "^21.1.1",
+    "rollup": "^2.75.7",
     "typescript": "^4.9.3",
+    "vite": "^4.0.0",
+    "vite-plugin-dts": "^2.1.0",
     "vitest": "^0.29.3",
     "vue": "^3.2.47"
   }
