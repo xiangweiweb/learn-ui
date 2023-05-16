@@ -3,6 +3,10 @@ import { rollup }  from 'rollup';
 import type { OutputOptions } from 'rollup';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import vuePlugin from 'rollup-plugin-vue';
+// import dts from 'rollup-plugin-dts';
+// import ts from '@rollup/plugin-typescript';
+import commonjs from '@rollup/plugin-commonjs';
+import esbuild from 'rollup-plugin-esbuild';
 import fg from 'fast-glob';
 import ThemeChalkPlugin from './plugins/theme-chalk';
 
@@ -41,35 +45,59 @@ const buildModules = async() => {
     };
 
     const input = await getInput();
+    const tsConfigPath = path.resolve(__dirname, '..', 'tsconfig.json');
+
     /**
      * 返回一个 Promise，该 Promise 解析为具有各种属性和方法的 bundle 对象
      */
     const bundle = await rollup({
         input,
         plugins: [
+            ThemeChalkPlugin(),
+            vuePlugin(),
             nodeResolve({
                 // 指定插件将操作的文件的扩展名, plugin插件
                 extensions: ['.mjs', '.js', '.ts', '.json']
             }),
-            vuePlugin(),
-            ThemeChalkPlugin(),
+            commonjs(),
+            // ts({
+            //     tsconfig: tsConfigPath,
+            //     // compilerOptions: {
+            //     //     lib: ["es5", "es6", "dom"],
+            //     //     target: "es5"
+            //     // }
+            // }),
+            esbuild({
+                sourceMap: true,
+                target: 'es2018',
+                loaders: {
+                  '.vue': 'ts',
+                },
+              }),
+
+
         ],
         external: getExternal(false),
+        treeshake: false,
     });
     // console.log(bundle.watchFiles);
     const outOptions: OutputOptions[] = [
         {
             format: 'cjs',
             dir: path.join(distRoot, 'lib'),
-            entryFileNames: `[name].js`,
+            entryFileNames: (chunkInfo) => {
+                const { name } = chunkInfo;
+                console.log(chunkInfo, name);
+                return `${name}.js`;
+            },
             exports: 'named',
-            // preserveModules: true,
-            // preserveModulesRoot: epRoot,
+            preserveModules: true,
+            preserveModulesRoot: componentsRoot,
             sourcemap: true,
         },
         {
             format: 'es',
-            dir: path.join(__dirname, 'es'),
+            dir: path.join(distRoot, 'es'),
             entryFileNames: `[name].mjs`,
             sourcemap: true
         }
